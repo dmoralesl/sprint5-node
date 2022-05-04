@@ -1,0 +1,6 @@
+
+@mixin border-light($border-size) {
+    transform: scale(1.05);
+    box-shadow: 0 0 $border-size $white-lighter; 
+    outline: none;
+}

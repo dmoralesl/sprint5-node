@@ -1,0 +1,54 @@
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+
+:host {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    margin: auto;
+
+    input {
+        padding: 1rem;
+        width: 35vw;
+        max-width: 325px;
+        border-radius: .7rem;
+        background-color: $black-light-bg;
+        color: $white-light;
+
+        &:focus {
+            @include border-light(25px);
+        }
+    }
+
+    .validation-error {
+        color: $yellow-sw;
+        margin: 0;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: $breakpoint-mobile) {
+    
+    .input-container { 
+        width: 75% !important; 
+    }
+    div.input-container { 
+        width: calc(75% + 2.5rem) !important; 
+        text-align: center;
+        input { width: inherit; }
+    }
+    form { 
+        padding: 0; 
+        width: 100%;
+    }
+}
+    
