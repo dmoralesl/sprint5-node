@@ -22,8 +22,12 @@ app.delete("/users/:id", UserController.delete);
 app.get("/rooms", RoomController.getAll);
 app.get("/rooms/:id", RoomController.getById);
 app.post("/rooms", RoomController.insert);
-app.put("/rooms/:id", RoomController.update);
 app.delete("/rooms/:id", RoomController.delete);
+
+app.post("/rooms/:id", RoomController.insertUserToRoom);
+app.delete("/rooms/:roomId/:userId", RoomController.deleteUserFromRoom);
+app.post("/rooms/:id/message", RoomController.addMessageToRoom);
+
 
 // Handling non valid routes (404)
 app.all("/*", (req, res, next) => {

@@ -1,6 +1,16 @@
+import { IMessage } from "../interfaces";
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
+
+
+const Message = new Schema<IMessage>({
+    content: { type: String, required: true },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  }, {timestamps: true});
 
 const Room = mongoose.model(
   "Room",
@@ -14,7 +24,8 @@ const Room = mongoose.model(
         ref: "User",
       },
     ],
-  })
+    messages: [Message],
+  }, {timestamps: true})
 );
 
 export default Room;

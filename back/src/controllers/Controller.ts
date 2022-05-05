@@ -24,7 +24,7 @@ class Controller {
     }
 
     async insert(req: Express.Request, res: Express.Response) {
-      let response = await this.service.insert(req.body);
+      const response = await this.service.insert(req.body);
       if (response?.error) return res.status(response.statusCode || 500).send(response);
       return res.status(201).send(response);
     }
@@ -32,7 +32,7 @@ class Controller {
     async update(req: Express.Request, res: Express.Response) {
       const { id } = req.params;
   
-      let response = await this.service.update(id, req.body);
+      const response = await this.service.update(id, req.body);
   
       return res.status(response.statusCode).send(response);
     }
@@ -40,7 +40,7 @@ class Controller {
     async delete(req: Express.Request, res: Express.Response) {
       const { id } = req.params;
   
-      let response = await this.service.delete(id);
+      const response = await this.service.delete(id);
   
       return res.status(response.statusCode).send(response);
     }
