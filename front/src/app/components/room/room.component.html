@@ -1,1 +1,18 @@
-<p>room works!</p>
+<button (click)="goToLobby()">Back to lobby</button>
+<form [formGroup]="messageForm" #form="ngForm" (ngSubmit)="sendMessage()">
+    <input class="input-container" type="text" formControlName="messageContent" #user placeholder="Type here...">
+    <button class="primary-button" type="submit" [disabled]="!messageForm.valid">Send</button>
+</form>
+
+<div class="chat-wrapper">
+    <div class="chat-panel">
+        <div *ngFor="let message of roomData?.messages" class="list-overview">
+            <p> {{ message.content }} </p>
+        </div>
+    </div>
+    <div class="users-panel">
+        <div *ngFor="let user of roomData?.users">
+            <p>{{ user.name }}</p>
+        </div>
+    </div>
+</div>

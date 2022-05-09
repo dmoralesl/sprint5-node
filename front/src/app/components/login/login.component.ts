@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from 'src/app/services/auth.service';
+import { IUser } from 'src/app/interfaces/SocketModels';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,9 +11,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  logged: boolean = false;
+  
+  userExists: boolean = false;
 
-  constructor(private router: Router,    private authService: AuthService,) {}
+  constructor(private router: Router,    private authService: AuthService,) {
+    if (sessionStorage.getItem('chatUser')) {this.goToLobby();}
+  }
 
   ngOnInit(): void {}
 
@@ -20,12 +24,18 @@ export class LoginComponent implements OnInit {
     user: new FormControl('', Validators.required),
   });
 
-  login() {
-    // Checking if user exists
-    this.logged = this.authService.validateUsername(this.loginForm.get('user')?.value);
+  async login() {
+    const user: IUser = await this.authService.loginUser(this.loginForm.get('user')?.value);
 
-    if (this.loginForm.value.user) {
-      this.router.navigate(['/lobby']);
+    if (user) {
+      sessionStorage.setItem('chatUser', JSON.stringify(user));
+      this.goToLobby();
+    } else {
+      this.userExists = true;
     }
+  }
+
+  goToLobby(): void {
+    this.router.navigate(['/lobby']);
   }
 }

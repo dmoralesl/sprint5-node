@@ -1,6 +1,7 @@
 import Controller from  './Controller.js';
 import User from "./../models/User.model";
 import UserService from '../services/User.service.js';
+import Service from '../services/Service.js';
 
 const userService = new UserService(
     User
@@ -8,7 +9,7 @@ const userService = new UserService(
   
 
 class UserController extends Controller {
-    constructor(service: any) {
+    constructor(service: Service) {
         super(service);
       }
 }

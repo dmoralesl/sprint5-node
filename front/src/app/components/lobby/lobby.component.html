@@ -1,1 +1,8 @@
-<p>lobby works!</p>
+<button (click)="logOut();">Logout</button>
+<button (click)="createNewRoom();">New room</button>
+<div *ngFor="let room of rooms" class="list-overview">
+    <div (click)="goToDetail(room._id || '')">
+        <h3> {{ room.name }} </h3>
+    </div>
+    <button *ngIf="room.createdBy === user._id" (click)="removeRoom(room?._id || '');">Remove</button>
+</div>

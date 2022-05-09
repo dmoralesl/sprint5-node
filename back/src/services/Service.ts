@@ -1,9 +1,10 @@
+import { Model } from "mongoose";
 
 class Service {
 
-    model: any;
+    model: Model<any>;
 
-    constructor (model: any) {
+    constructor (model: Model<any>) {
       this.model = model
       this.getAll = this.getAll.bind(this)
       this.getById = this.getById.bind(this)
@@ -14,7 +15,7 @@ class Service {
   
     async getAll () {
       try {
-        const rows = await this.model.find()
+        const rows = await this.model.find();
         return {
           error: false,
           statusCode: 200,
@@ -67,13 +68,13 @@ class Service {
       }
     }
   
-    async insert (data: object) {
+    async insert (dataInput: object) {
       try {
-        const item = await this.model.create(data)
-        if (item)
+        const data = await this.model.create(dataInput)
+        if (data)
           return {
             error: false,
-            item
+            data
           }
       } catch (error: any) {
         return {
@@ -85,15 +86,15 @@ class Service {
       }
     }
   
-    async update (id: string, data: object) {
+    async update (id: string, dataInput: object) {
       try {
-        const item = await this.model.findOneAndUpdate({ _id: id }, data, {
+        const data = await this.model.findOneAndUpdate({ _id: id }, dataInput, {
           new: true
         })
         return {
           error: false,
           statusCode: 202,
-          item
+          data
         }
       } catch (error: any) {
         return {
@@ -106,8 +107,8 @@ class Service {
   
     async delete (id: string) {
       try {
-        const item = await this.model.findByIdAndDelete(id)
-        if (!item)
+        const data = await this.model.findByIdAndDelete(id)
+        if (!data)
           return {
             error: true,
             statusCode: 404,
@@ -118,7 +119,7 @@ class Service {
           error: false,
           deleted: true,
           statusCode: 202,
-          item
+          data
         }
       } catch (error: any) {
         return {
@@ -131,10 +132,10 @@ class Service {
   
     async deleteByAttr (field: string, value: object) {
       try {
-        const item = await this.model.deleteMany({
+        const data = await this.model.deleteMany({
           [field]: value
         })
-        if (!item)
+        if (!data)
           return {
             error: true,
             statusCode: 404,
@@ -145,7 +146,7 @@ class Service {
           error: false,
           deleted: true,
           statusCode: 202,
-          item
+          data
         }
       } catch (error: any) {
         return {

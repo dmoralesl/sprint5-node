@@ -1,4 +1,5 @@
-import { IMessage } from "../interfaces";
+import { IMessage, IRoom } from "../interfaces";
+
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
@@ -14,10 +15,13 @@ const Message = new Schema<IMessage>({
 
 const Room = mongoose.model(
   "Room",
-  new Schema({
+  new Schema<IRoom>({
     name: { type: String, unique: true },
     description: String,
-    createdBy: String,
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
     users: [
       {
         type: Schema.Types.ObjectId,

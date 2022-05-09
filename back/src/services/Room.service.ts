@@ -1,18 +1,74 @@
-import { IMessage } from "../interfaces.js";
+import { Model } from "mongoose";
+import { IMessage, IRoom } from "../interfaces.js";
 import Service from "./Service.js";
 
 class RoomService extends Service {
-  constructor(model: any) {
+  constructor(model: Model<IRoom>) {
     super(model);
     this.insertUserToRoom = this.insertUserToRoom.bind(this);
     this.deleteUserFromRoom = this.deleteUserFromRoom.bind(this);
     this.addMessageToRoom = this.addMessageToRoom.bind(this);
   }
  
+  async getAll () {
+    try {
+      const rows = await this.model.find().populate('users');
+      return {
+        error: false,
+        statusCode: 200,
+        data: rows
+      }
+    } catch (errors) {
+        console.log('errors', errors)
+      return {
+        error: true,
+        statusCode: 400,
+        errors
+      }
+    }
+  }
+
+  async getById (id: string) {
+      try {
+        const register = await this.model.findById(id).populate('users');
+  
+        return {
+          error: false,
+          statusCode: 200,
+          data: register
+        }
+      } catch (errors) {
+        return {
+          error: true,
+          statusCode: 400,
+          errors
+        }
+      }
+    }
+
+  async getByAttr (field: string, value: any) {
+    try {
+      const data = await this.model.find({
+          [field]: value
+      }).populate('users');
+      return {
+        error: false,
+        statusCode: 200,
+        data
+      }
+    } catch (errors) {
+      return {
+        error: true,
+        statusCode: 400,
+        errors
+      }
+    }
+  }
+
   async insertUserToRoom(roomId: string, userId: string) {
     try {
-        const item = await this.model.findByIdAndUpdate(roomId, { $addToSet: {users: userId}}, {new: true});
-        if (!item) {
+        const data = await this.model.findByIdAndUpdate(roomId, { $addToSet: {users: userId}}, {new: true}).populate('users');
+        if (!data) {
             return {
                 error: true,
                 statusCode: 404,
@@ -21,7 +77,7 @@ class RoomService extends Service {
         }
         return {
         error: false,
-        item
+        data
         }
       } catch (error: any) {
         return {
@@ -36,12 +92,11 @@ class RoomService extends Service {
   async deleteUserFromRoom(roomId: string, userId: string) {
     try {
 
-        const item = await this.model.findByIdAndUpdate({_id: roomId}, { $pullAll: {users: [userId]}}, {new: true});
-        console.log("ITEM", item, roomId, userId);
-        if (item)
+        const data = await this.model.findByIdAndUpdate({_id: roomId}, { $pullAll: {users: [userId]}}, {new: true}).populate('users');
+        if (data)
           return {
             error: false,
-            item
+            data
           }
       } catch (error: any) {
         return {
@@ -55,12 +110,11 @@ class RoomService extends Service {
 
   async addMessageToRoom(roomId: string, message: IMessage) {
     try {
-        console.log(roomId, message);
-        const item = await this.model.findByIdAndUpdate(roomId, { $push: {messages: message}}, {new: true});
-        if (item)
+        const data = await this.model.findByIdAndUpdate(roomId, { $push: {messages: message}}, {new: true}).populate('users');
+        if (data)
           return {
             error: false,
-            item
+            data
           }
       } catch (error: any) {
         return {
