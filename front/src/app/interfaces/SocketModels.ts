@@ -1,6 +1,6 @@
 export interface IMessage {
     content: string,
-    user: string,
+    user:  IUser,
     createdAt?: Date
 }
 
@@ -8,7 +8,7 @@ export interface IRoom {
     _id?: string,
     name: string,
     description: string,
-    createdBy: string,
+    createdBy: IUser,
     users: IUser[],
     messages: IMessage[],
     createdAt?: Date
@@ -17,5 +17,6 @@ export interface IRoom {
 export interface IUser {
     _id?: string,
     name: string,
-    createdAt?: Date
+    createdAt?: Date,
+    color?: string
 }

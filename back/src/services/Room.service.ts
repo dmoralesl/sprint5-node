@@ -12,7 +12,7 @@ class RoomService extends Service {
  
   async getAll () {
     try {
-      const rows = await this.model.find().populate('users');
+      const rows = await this.model.find().populate('users').populate('createdBy').populate('messages.user');
       return {
         error: false,
         statusCode: 200,
@@ -61,6 +61,26 @@ class RoomService extends Service {
         error: true,
         statusCode: 400,
         errors
+      }
+    }
+  }
+
+  async insert (dataInput: object) {
+    try {
+      let data = await this.model.create(dataInput);
+      data = await data.populate('createdBy');
+      if (data)
+        return {
+          error: false,
+          data
+        }
+    } catch (error: any) {
+      console.log(error)
+      return {
+        error: true,
+        statusCode: 400,
+        message: error.errmsg || 'Not able to create item',
+        errors: error.errors
       }
     }
   }

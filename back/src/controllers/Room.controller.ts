@@ -64,7 +64,7 @@ class RoomController extends Controller {
         return res.status(response.statusCode ?? 400).send(response);
     }
 
-    req.app.get('io').to(id).emit('newMessage', req.body);
+    req.app.get('io').to(id).emit('newMessage', {...req.body, createdAt: new Date()});
     return res.status(201).send(response);
   }
 }

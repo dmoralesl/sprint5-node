@@ -1,4 +1,5 @@
 <form [formGroup]="loginForm" #form="ngForm" (ngSubmit)="login()">
+    <h2>Welcome to most anodyne chat ever!</h2>
     <input class="input-container" type="text" formControlName="user" #user placeholder="Username">
     <p *ngIf="userExists && form.submitted" class=validation-error>Username already exists. Pick other name!</p>
     <button class="primary-button" type="submit" [disabled]="!loginForm.valid">Start chatting!</button>

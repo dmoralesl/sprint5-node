@@ -1,4 +1,4 @@
-import { IRoom } from '../interfaces/SocketModels';
+import { IMessage, IRoom } from '../interfaces/SocketModels';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -8,16 +8,13 @@ export class RoomService {
 
   constructor() { }
 
-  sendMessage(message: string, roomId: string) {
+  sendMessage(message: IMessage, roomId: string) {
     return fetch(`http://localhost:3000/rooms/${roomId}/message`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        content: message,
-        user: '62742f7a32ad4a29b3ecb7a4'
-      })
+      body: JSON.stringify(message)
     })
   }
 

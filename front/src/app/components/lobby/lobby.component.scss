@@ -1,0 +1,66 @@
+@import "../../../styles/variables";
+
+.room-description {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+footer {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: small;
+    color: $yellow-sw;
+    font-style: italic;
+    opacity: .7;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+
+    &:first-child {
+        font-weight: bold;
+    }
+
+    button {
+        cursor: pointer;
+        padding: .5rem 5rem;
+        border: 2px solid $white-lighter;
+        background: $black-bg;
+        color: white;
+        font-size: 0.9rem;
+        border-radius: 0.5rem;
+    }
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+.chat-pill, .list-overview{
+    position: relative;
+
+    button {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        border: none;
+        background-color: red;
+        color: white;
+        padding: 0.2rem 0.5rem;
+        border-radius: .5rem 0 .5rem 0;
+        z-index: 100;
+        cursor: pointer;
+    }
+}
+
+#logout {
+    cursor: pointer;
+    font-size: 2rem;
+    color: $white-light;
+}

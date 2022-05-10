@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RoomComponent } from './components/room/room.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const config: SocketIoConfig = {
 	url: 'http://localhost:3000', 
@@ -27,6 +28,7 @@ const config: SocketIoConfig = {
     AppRoutingModule,
     ReactiveFormsModule,
     SocketIoModule.forRoot(config),
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

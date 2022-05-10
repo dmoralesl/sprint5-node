@@ -1,18 +1,32 @@
-<button (click)="goToLobby()">Back to lobby</button>
+<fa-icon (click)="goToLobby()" id="backToLobby" [icon]="backLogo" title="Back to lobby"></fa-icon>
+
+<div class="chat-wrapper">
+    <div class="chat-panel" #chatPanel>
+        <div *ngFor="let message of roomData?.messages" class="chat-message" [ngClass]="{'own-message': message?.user?._id === currentUser?._id}">
+            <div *ngIf="message?.user?.name !== 'system' && message.createdAt" class="message-content">
+                <div [style.color]="getUserColor(message.user?._id)"> {{ message.user?.name ?? "Removed User" }} </div>
+                <span>&rarr;</span>
+                <div> {{ message.content }} </div>
+            </div>
+            <div *ngIf="message?.user?.name === 'system' || !message.createdAt" class="system-message">
+                <div [style.color]="message?.content?.includes('left') ? '#e33636' : '#3fae4d'"> {{ message.content }} </div>
+            </div>
+            <div class="message-footer"> {{ message?.createdAt?.toLocaleString()?.substring(0,16)?.replace('T', ' ') }}</div>
+        </div>
+    </div>
+    <div class="users-panel">
+        <h3>USERS</h3>
+        <ul>
+            <li *ngFor="let user of roomData?.users">
+                <span [style.color]="user.color" [ngClass]="{'itself-user': user?._id === currentUser?._id}">{{ user?.name }}</span>    
+            </li>
+        </ul>
+    </div>
+</div>
+
 <form [formGroup]="messageForm" #form="ngForm" (ngSubmit)="sendMessage()">
     <input class="input-container" type="text" formControlName="messageContent" #user placeholder="Type here...">
     <button class="primary-button" type="submit" [disabled]="!messageForm.valid">Send</button>
 </form>
 
-<div class="chat-wrapper">
-    <div class="chat-panel">
-        <div *ngFor="let message of roomData?.messages" class="list-overview">
-            <p> {{ message.content }} </p>
-        </div>
-    </div>
-    <div class="users-panel">
-        <div *ngFor="let user of roomData?.users">
-            <p>{{ user.name }}</p>
-        </div>
-    </div>
-</div>
+

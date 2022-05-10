@@ -1,8 +1,110 @@
+@import "../../../styles/variables";
+
+:host {
+    padding: 0 10vw 0 10vw;
+}
+
 .chat-wrapper {
     display: flex;
+    padding-top: 6vh;
+    height: 70vh;
 
     .chat-panel {
         width: 80%;
+        background-color: $black-light-bg;
+        overflow: auto;
+
+
+
+        .chat-message {
+            display: flex;
+            flex-direction: column;
+            background-color: $black-bg;
+            margin: .3rem .5rem;
+            padding: .3rem .5rem;
+            border: 1.5px solid $white-light;
+            border-radius: .5rem;
+    
+            .message-footer { 
+                font-style: italic;
+                color: $yellow-sw;
+                font-size: .6rem;
+                opacity: .65;    
+                display: flex;
+                align-self: end;            
+            }
+
+            .message-content {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            
+                div:first-of-type {
+                    text-decoration: underline;
+                    font-size: .7rem;
+                }
+
+                div:last-of-type {
+                    color: white;
+                    word-wrap: break-word;   
+                    overflow-wrap: break-word;
+                    word-break: break-word;
+                    font-size: smaller;                    
+                }
+            }
+        }
+
+        .own-message {
+            border: 1px solid aquamarine;
+        }
     }
 
+    .users-panel {
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        ul {list-style-type: none;}
+        li {padding: .5rem;}
+
+        .itself-user {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    }
+
+}
+
+#backToLobby {
+    position: absolute;
+    top: 1rem;
+    left: 1.5rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: $white-light;
+}
+
+form {
+    height: min(10vh, 2rem);
+    padding-top: 4vh;
+    display: flex;
+    padding-bottom: 10vh;
+    justify-content: center;
+    align-items: center;
+
+    input {
+        height: 100%;
+        width: 75%;
+        box-sizing: border-box;
+        padding-left: .5rem;
+        border-radius: .5rem;
+        border: 1.5px solid white;
+    }
+
+    button {
+        height: 100%;
+        width: 25%;
+        padding: 0 !important;
+    }
 }

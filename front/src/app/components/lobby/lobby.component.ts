@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LobbyService } from './../../services/lobby.service';
 import { Router } from '@angular/router';
 import { SocketService } from 'src/app/services/socket.service';
+import { faPersonWalkingArrowRight } from '@fortawesome/free-solid-svg-icons'; 
 
 @Component({
   selector: 'app-lobby',
@@ -12,7 +13,7 @@ import { SocketService } from 'src/app/services/socket.service';
   styleUrls: ['./lobby.component.scss']
 })
 export class LobbyComponent implements OnInit {
-
+  exitLogo = faPersonWalkingArrowRight;
   rooms: IRoom[] = [];
   user: IUser;
   
@@ -28,13 +29,14 @@ export class LobbyComponent implements OnInit {
    }
 
   async ngOnInit(): Promise<void> {
-    this.rooms = await this.lobbyService.getRoomsInLobby();
+    this.rooms = (await this.lobbyService.getRoomsInLobby()).sort((a,b) => b.users.length - a.users.length);
 		this.socketService.OnNewRoom().subscribe(this.onNewRoom.bind(this));
 		this.socketService.OnRemovedRoom().subscribe(this.onRemoveRoom.bind(this));
   }
 
   @HostListener('window:beforeunload', ['$event'])
   leaveChatWarn(event: Event) {
+    sessionStorage.removeItem('chatUser');
     return false;
   }
 
@@ -76,7 +78,7 @@ export class LobbyComponent implements OnInit {
     await this.lobbyService.addRoom({
       name,
       description,
-      createdBy: this.user._id ?? "",
+      createdBy: this.user,
       users: [],
       messages: []
 

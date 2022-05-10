@@ -38,7 +38,7 @@ io.on('connection', (socket: any) => {
     new UserService(User).delete(userId);
 
   })
-  socket.emit('newMessage', "Welcome to the room");
+  socket.emit('newMessage', {content: "Welcome to the room"});
 });
 
 app.set('io', io);

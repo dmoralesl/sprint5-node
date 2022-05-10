@@ -1,8 +1,16 @@
-<button (click)="logOut();">Logout</button>
-<button (click)="createNewRoom();">New room</button>
-<div *ngFor="let room of rooms" class="list-overview">
-    <div (click)="goToDetail(room._id || '')">
-        <h3> {{ room.name }} </h3>
+<header>
+    <div class="user-logger">Username: {{ user?.name }}</div>
+    <button (click)="createNewRoom();">New room</button>
+    <fa-icon id="logout" (click)="logOut();" [icon]="exitLogo" title="Logout"></fa-icon>
+</header>
+<main>
+    <div *ngFor="let room of rooms" class="list-overview">
+        <div class="chat-pill" (click)="goToDetail(room._id || '')">
+            <h3> {{ room.name }} </h3>
+            <div class="room-description"> {{ room.description }}</div>
+            <footer *ngIf="room.createdBy !== null">Created by: {{ room.createdBy.name }}</footer>
+        </div>
+        <button *ngIf="room.createdBy?._id === user._id" (click)="removeRoom(room?._id || '');">Remove</button>
     </div>
-    <button *ngIf="room.createdBy === user._id" (click)="removeRoom(room?._id || '');">Remove</button>
-</div>
+</main>
+
