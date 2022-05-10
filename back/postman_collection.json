@@ -1,0 +1,313 @@
+{
+	"info": {
+		"_postman_id": "2c76b2b4-80f7-4be1-b09e-0ff89fc999f5",
+		"name": "SPRINT5-NODE-CHAT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "USERS",
+			"item": [
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/users/62742f5c32ad4a29b3ecb79e",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"62742f5c32ad4a29b3ecb79e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"user1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/62742f5c32ad4a29b3ecb79e",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"62742f5c32ad4a29b3ecb79e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ROOM",
+			"item": [
+				{
+					"name": "Get all rooms",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/rooms",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get room by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/rooms/6272fa6d7544df74463622a1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"rooms",
+								"6272fa6d7544df74463622a1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new room",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"My awesome room\",\n    \"description\": \"Custom room created for being chill inside\",\n    \"createdBy\": \"62768e79be69ea3a3e274cd2\",\n    \"users\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/rooms",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add user to room",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"62742f7a32ad4a29b3ecb7a4\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/rooms/62744a1cccffddede4e533c6",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"rooms",
+								"62744a1cccffddede4e533c6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove user from room",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/rooms/6272fa6d7544df74463622a1/62742f7a32ad4a29b3ecb7a4",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"rooms",
+								"6272fa6d7544df74463622a1",
+								"62742f7a32ad4a29b3ecb7a4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add message to room",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": \"62742f7a32ad4a29b3ecb7a4\",\n    \"content\": \"Hello mensajito\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/rooms/62744a1cccffddede4e533c6/message",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"rooms",
+								"62744a1cccffddede4e533c6",
+								"message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete room",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/rooms/6272fa6d7544df74463622a1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"rooms",
+								"6272fa6d7544df74463622a1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
